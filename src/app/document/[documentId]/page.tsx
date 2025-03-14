@@ -8,11 +8,9 @@ interface DocumentIdPageProps {
 export default async function DocumentIdPage({ params }: DocumentIdPageProps) {
   const { documentId } = await params;
   return (
-    <div>
+    <>
       <Toolbar />
-      <div>
-        <Editor />
-      </div>
-    </div>
+      <Editor />
+    </>
   );
 }

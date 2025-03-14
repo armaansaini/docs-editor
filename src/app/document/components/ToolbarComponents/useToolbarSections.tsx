@@ -91,23 +91,19 @@ const getMoreActionButtons = (editor: Editor | null) => [
   },
 ];
 
-export default function ToolbarSections() {
+interface ToolbarSectionType {
+  label: string;
+  icon: LucideIcon;
+  onClick?: () => void;
+  isActive?: boolean;
+}
+
+export default function useToolbarSections() {
   const { editor } = useEditorState();
 
-  const ActionButtonsSection = getActionButtons(editor);
-  const TextStyleButtonSection = getTextStyleButtons(editor);
-  const MoreActionButtons = getMoreActionButtons(editor);
+  const actionButtons: ToolbarSectionType[] = getActionButtons(editor);
+  const textStyleButtons: ToolbarSectionType[] = getTextStyleButtons(editor);
+  const moreActionButtons: ToolbarSectionType[] = getMoreActionButtons(editor);
 
-  const sections: {
-    label: string;
-    icon: LucideIcon;
-    onClick?: () => void;
-    isActive?: boolean;
-  }[][] = [
-    [...ActionButtonsSection],
-    [...TextStyleButtonSection],
-    [...MoreActionButtons],
-  ];
-
-  return [sections];
+  return { actionButtons, textStyleButtons, moreActionButtons };
 }

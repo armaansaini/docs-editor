@@ -5,8 +5,8 @@ import { useEditorState } from "@/store/use-editor-store";
 import { LucideIcon } from "lucide-react";
 import FontFamilyButton from "./ToolbarComponents/FontFamilyButton";
 
-import ToolbarSections from "./ToolbarComponents/ToolbarSections";
 import HeadingLevelButton from "./ToolbarComponents/HeadingLevelButton";
+import useToolbarSections from "./ToolbarComponents/useToolbarSections";
 
 interface ToolbarButtonProps {
   onClick?: () => void;
@@ -34,16 +34,17 @@ const ToolbarButton = ({
 
 export default function Toolbar() {
   const { editor } = useEditorState();
-  const [sections] = ToolbarSections();
+  const { actionButtons, textStyleButtons, moreActionButtons } =
+    useToolbarSections();
   console.log(editor);
 
   return (
     <div className="flex bg-[#f1f4f9] px-2.5 py-0.5 rounded-[24px] min-h-[40px] items-center gap-x-0.5 overflow-x-auto">
-      {sections[0].map((item) => (
+      {actionButtons.map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
-      {sections[1].map((item) => (
+      {textStyleButtons.map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
@@ -51,7 +52,7 @@ export default function Toolbar() {
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       <HeadingLevelButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
-      {sections[2].map((item) => (
+      {moreActionButtons.map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
     </div>
