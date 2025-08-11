@@ -13,10 +13,15 @@ import ImageResize from "tiptap-extension-resize-image";
 import Underline from "@tiptap/extension-underline";
 import FontFamily from "@tiptap/extension-font-family";
 import TextStyle from "@tiptap/extension-text-style";
+import Highlight from "@tiptap/extension-highlight";
+import Link from "@tiptap/extension-link";
+import { Color } from "@tiptap/extension-color";
 
 import { useEditorState } from "@/store/use-editor-store";
+import Ruler from "./Ruler";
+import useAutoSaveToDatabase from "@/hooks/useAutoSaveToDatabase";
 
-export default function Editor() {
+export default function Editor({ documentId }: { documentId: string }) {
   const { setEditor } = useEditorState();
   const editor = useEditor({
     onCreate({ editor }) {
@@ -52,7 +57,14 @@ export default function Editor() {
     },
     extensions: [
       StarterKit,
+      Link.configure({
+        openOnClick: false,
+        defaultProtocol: "https",
+        autolink: true,
+      }),
       TextStyle,
+      Highlight.configure({ multicolor: true }),
+      Color,
       FontFamily,
       Underline,
       Table,
@@ -68,8 +80,14 @@ export default function Editor() {
     ],
     content: `Hello World`,
   });
+
+  console.log("i am renning ");
+  //
+  useAutoSaveToDatabase({ documentId });
+
   return (
     <div className="size-full p-4 print:p-0 bg-[#f9fbfd] overflow-x-auto print:overflow-visible print:bg-white">
+      <Ruler />
       <div className="min-w-max justify-center flex w-[816px] py-4 mx-auto print:w-full print:min-w-0 print:py-0">
         <EditorContent editor={editor} />
       </div>

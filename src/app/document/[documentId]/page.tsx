@@ -1,4 +1,5 @@
 import Editor from "../components/Editor";
+import Navbar from "../components/Navbar";
 import Toolbar from "../components/Toolbar";
 
 interface DocumentIdPageProps {
@@ -9,8 +10,9 @@ export default async function DocumentIdPage({ params }: DocumentIdPageProps) {
   const { documentId } = await params;
   return (
     <>
+      <Navbar />
       <Toolbar />
-      <Editor />
+      <Editor documentId={documentId} />
     </>
   );
 }

@@ -249,4 +249,13 @@ body {
       outline: 3px solid var(--purple);
     }
   }
+
+  a {
+    color: #5555ff;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
